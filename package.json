@@ -1,0 +1,48 @@
+{
+  "name": "hospot-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js --exec babel-node --presets @babel/preset-env",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Darío Vallejo Posada",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-class-properties": "^7.12.1",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/register": "^7.0.0",
+    "body-parser": "^1.19.0",
+    "compute-cosine-similarity": "^1.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "i": "^0.3.6",
+    "lodash": "^4.17.20",
+    "node-kmeans": "^1.1.9",
+    "path": "^0.12.7",
+    "pg": "^8.4.2",
+    "sequelize": "^5.21.12",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "axios": "^0.21.0",
+    "babel-core": "^6.26.3",
+    "nodemon": "^2.0.6"
+  }
+}
