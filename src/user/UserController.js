@@ -15,17 +15,55 @@ class UserController {
     const client = await ClientDAO.getClientById(clientId);
     const allDogs = await ClientDAO.getAllDogs();
 
+    if (!client.clientPreference) {
+      throw new Error('Lo sentimos no tiene preferencias');
+    }
+
+    const dogsAccumulated = allDogs.reduce(
+      (accumulated, dog) => {
+        if (dog.clients.length > 0) {
+          return {
+            size: accumulated.size + dog.size,
+            color: accumulated.color + dog.color,
+            area: accumulated.area + dog.area,
+            counter: accumulated.counter + 1,
+          };
+        }
+
+        return accumulated;
+      },
+      {
+        size: client.clientPreference.size,
+        color: client.clientPreference.color,
+        area: client.clientPreference.area,
+        counter: 1,
+      },
+    );
+
     const y = [
-      client.clientPreference.size,
-      client.clientPreference.color,
-      client.clientPreference.area,
+      dogsAccumulated.size / dogsAccumulated.counter,
+      dogsAccumulated.color / dogsAccumulated.counter,
+      dogsAccumulated.area / dogsAccumulated.counter,
       1,
     ];
 
+    console.log({ y, dogsAccumulated });
+
     const ratedDogs = allDogs.map((dog) => {
-      const x = [dog.size, dog.color, dog.area, dog.clients.length > 0 ? 1 : 0];
+      const x = [
+        dog.size,
+        dog.color,
+        dog.area,
+        dog.clients.length > 0 ? 1 : -100,
+      ];
+      const yLike = [1];
+      const xLike = [dog.clients.length > 0 ? 1 : -100];
       const rate = similarity(x, y);
-      return { ...dog.dataValues, index: rate };
+      return {
+        ...dog.dataValues,
+        index: rate,
+        path: `http://localhost:1337/pets/${dog.path}`,
+      };
     });
 
     return _.orderBy(ratedDogs, ['index'], ['desc']);

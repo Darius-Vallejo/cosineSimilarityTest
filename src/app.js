@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const hubSpot = express.Router();
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
-
+app.use(express.static(__dirname + '/public'));
 app.use('/api/client', UserRouter);
 
 app.use('/api/hub', hubSpot);
