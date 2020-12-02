@@ -27,6 +27,7 @@ class UserController {
 
     console.log({ c: client.clientPreference });
 
+    const hasLike = allDogs.find((dog) => dog.clients.length > 0);
     const dogsAccumulated = allDogs.reduce(
       (accumulated, dog) => {
         if (dog.clients.length > 0) {
@@ -44,7 +45,7 @@ class UserController {
       },
       {
         size: [client.clientPreference.size],
-        color: allDogs.length > 0 ? [] : [client.clientPreference.color],
+        color: hasLike ? [] : [client.clientPreference.color],
         area: [client.clientPreference.area],
         counter: 1,
       },
@@ -57,7 +58,11 @@ class UserController {
       100,
     ];
 
-    console.log({ y, dogsAccumulated });
+    console.log({
+      y,
+      dogsAccumulated,
+      c: allDogs.length > 0 ? [] : [client.clientPreference.color],
+    });
 
     const ratedDogs = allDogs.map((dog) => {
       const x = [
@@ -67,6 +72,7 @@ class UserController {
         dog.clients.length > 0 ? 100 : -100,
       ];
       const rate = similarity(x, y);
+      console.log({ rate, n: dog.name });
       return {
         ...dog.dataValues,
         index: rate,
@@ -74,7 +80,9 @@ class UserController {
       };
     });
 
-    return _.orderBy(ratedDogs, ['index'], ['desc']);
+    const all = _.orderBy(ratedDogs, ['index'], ['desc']);
+    // console.log({ all });
+    return all;
   };
 }
 
